@@ -17,7 +17,8 @@ RUN apt update && apt upgrade -y && \
         bash \
         curl \
         gcc \
-        git 
+        git \
+        rsync
         
 
 COPY . /tmp/userbot_local
