@@ -16,19 +16,9 @@ RUN apt update && apt upgrade -y && \
     apt install --no-install-recommends -y \
         bash \
         curl \
-        ffmpeg \
         gcc \
-        git \
-        libjpeg-dev \
-        libjpeg62-turbo-dev \
-        libwebp-dev \
-        musl \
-        musl-dev \
-        atomicparsley \
-        neofetch \
-        rsync \
-        zlib1g \
-        zlib1g-dev
+        git 
+        
 
 COPY . /tmp/userbot_local
 WORKDIR /usr/src/app/TG-UserBot/
