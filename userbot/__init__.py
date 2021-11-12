@@ -22,7 +22,7 @@ import pathlib
 import platform
 import sys
 
-import redis
+
 from telethon.tl import types
 
 from sessions.redis import RedisSession
@@ -37,8 +37,7 @@ __author__ = "Kandarp <https://github.com/kandnub>"
 __copyright__ = "TG-UserBot  Copyright (C) 2019 - 2020  " + __author__
 root = pathlib.Path(__file__).parent.parent
 
-session = "userbot"
-redis_db = False
+
 loop = None
 config = configparser.ConfigParser()
 config_file = pathlib.Path(root / 'config.ini')
@@ -94,8 +93,7 @@ telethon = config['telethon']
 API_ID = telethon.getint('api_id', False)
 API_HASH = telethon.get('api_hash', False)
 SESSION = os.environ.get("SESSION",None)
-REDIS_ENDPOINT = telethon.get('redis_endpoint', False)
-REDIS_PASSWORD = telethon.get('redis_password', False)
+
 
 userbot = config['userbot']
 LOGGER_CHAT_ID = userbot.getint('logger_group_id', 0)
@@ -117,27 +115,7 @@ if not (API_ID and API_HASH):
     LOGGER.debug("No API keys!")
     sys.exit(1)
 
-if REDIS_ENDPOINT and REDIS_PASSWORD:
-    try:
-        REDIS_HOST = REDIS_ENDPOINT.split(':')[0]
-        REDIS_PORT = REDIS_ENDPOINT.split(':')[1]
-        redis_connection = redis.Redis(
-            host=REDIS_HOST, port=REDIS_PORT, password=REDIS_PASSWORD
-        )
-        redis_connection.ping()
-    except Exception as e:
-        LOGGER.exception(e)
-        print()
-        LOGGER.error(
-            "Make sure you have the correct Redis endpoint and password "
-            "and your machine can make connections."
-        )
-        sys.exit(1)
-    LOGGER.debug("Connected to Redis successfully!")
-    redis_db = redis_connection
-    if not sql_session.exists():
-        LOGGER.debug("Using Redis session!")
-        session = RedisSession("userbot", redis_connection)
+
 
 client = UserBotClient(
     session=SESSION,
