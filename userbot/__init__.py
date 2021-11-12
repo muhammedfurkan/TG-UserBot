@@ -93,6 +93,7 @@ if "telethon" not in config:
 telethon = config['telethon']
 API_ID = telethon.getint('api_id', False)
 API_HASH = telethon.get('api_hash', False)
+SESSION = os.environ.get("SESSION",None)
 REDIS_ENDPOINT = telethon.get('redis_endpoint', False)
 REDIS_PASSWORD = telethon.get('redis_password', False)
 
@@ -139,7 +140,7 @@ if REDIS_ENDPOINT and REDIS_PASSWORD:
         session = RedisSession("userbot", redis_connection)
 
 client = UserBotClient(
-    session=session,
+    session=SESSION,
     api_id=API_ID,
     api_hash=API_HASH,
     loop=loop,
