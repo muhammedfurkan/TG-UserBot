@@ -1,4 +1,4 @@
-FROM python:slim-buster
+FROM python:3.10.0a7-alpine3.12
 
 RUN apt update && apt upgrade -y && \
     apt install --no-install-recommends -y \
